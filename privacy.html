@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRONMIND AI — Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --border: #1e1e1e;
+            --accent: #c4ff00;
+            --accent-dim: rgba(196, 255, 0, 0.08);
+            --text: #e8e8e8;
+            --text-muted: #888888;
+            --heading: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Ambient glow */
+        .glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(196, 255, 0, 0.04) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .logo-area {
+            margin-bottom: 64px;
+            text-align: center;
+        }
+
+        .logo-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: var(--bg);
+            letter-spacing: 1px;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            letter-spacing: 6px;
+            color: var(--heading);
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 24px;
+            transition: border-color 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(196, 255, 0, 0.15);
+        }
+
+        .section-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+            color: var(--heading);
+            margin-bottom: 16px;
+        }
+
+        .section p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Contact card */
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--accent-dim);
+            border: 1px solid rgba(196, 255, 0, 0.12);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            background: rgba(196, 255, 0, 0.12);
+            border-color: rgba(196, 255, 0, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 22px;
+            height: 22px;
+            color: var(--bg);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info .label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .contact-info .value {
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .contact-arrow {
+            color: var(--accent);
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover .contact-arrow {
+            transform: translateX(4px);
+        }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 8px;
+        }
+
+        .faq-item:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 48px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-area { animation: fadeUp 0.6s ease both; }
+        .section:nth-child(1) { animation: fadeUp 0.6s ease 0.1s both; }
+        .section:nth-child(2) { animation: fadeUp 0.6s ease 0.2s both; }
+        .section:nth-child(3) { animation: fadeUp 0.6s ease 0.3s both; }
+        .footer { animation: fadeUp 0.6s ease 0.4s both; }
+
+        @media (max-width: 600px) {
+            .container { padding: 48px 16px; }
+            .section { padding: 28px 20px; }
+            .logo-text { font-size: 28px; letter-spacing: 4px; }
+            .section h2 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div class="container">
+        <div class="logo-area">
+            <div class="logo-mark">
+                <div class="logo-icon">IM</div>
+                <div class="logo-text">IRONMIND AI</div>
+            </div>
+            <div class="tagline">Forge Your Mental Edge</div>
+        </div>
+
+        <div class="section">
+            <div class="section-label">About</div>
+            <h2>Train Your Mind Like You Train Your Body</h2>
+            <p>IRONMIND AI is a mindset coaching app that uses artificial intelligence to help you build mental resilience, develop winning habits, and unlock your full potential.</p>
+            <p>Track your mental state, receive personalized insights, and build the discipline that separates good from great.</p>
+        </div>
+
+        <div class="section">
+            <div class="section-label">Support</div>
+            <h2>Need Help?</h2>
+            <p>Having trouble with the app, have a feature request, or just want to get in touch? Reach out and we'll get back to you as soon as possible.</p>
+
+            <a href="mailto:Owen.e.collins21@gmail.com" class="contact-card">
+                <div class="contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <div class="contact-info">
+                    <div class="label">Email Us</div>
+                    <div class="value">Owen.e.collins21@gmail.com</div>
+                </div>
+                <div class="contact-arrow">→</div>
+            </a>
+        </div>
+
+        <div class="section">
+            <div class="section-label">FAQ</div>
+            <h2>Common Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-q">Is my data private?</div>
+                <div class="faq-a">Yes. Your mindset and health data stays on your device and is never sold to third parties. See our <a href="privacy.html" style="color: var(--accent);">Privacy Policy</a> for full details.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">What platforms is the app available on?</div>
+                <div class="faq-a">IRONMIND AI is currently available on iOS. Android support is planned for a future release.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">How do I report a bug?</div>
+                <div class="faq-a">Send us an email at the address above with a description of the issue and any screenshots. We'll look into it right away.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Is the app free?</div>
+                <div class="faq-a">IRONMIND AI is free to download with core features available at no cost.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:Owen.e.collins21@gmail.com">Contact</a>
+            </div>
+            <p>&copy; 2026 IRONMIND AI. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
